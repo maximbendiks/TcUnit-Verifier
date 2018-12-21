@@ -23,6 +23,9 @@
     <Description>This project is can be used to verify the different functions of TcUnit. It has various test suites to test different functions in TcUnit. By making sure to comment out everything except the test suite that is interesting it is possible to test only the specific function of TcUnit that is interesting.</Description>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Mocks\TestSuiteMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -44,6 +47,9 @@
     <Compile Include="Test\FB_CreateDisabledTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Test\FB_Runner_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Test\FB_PrimitiveTypes_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +59,12 @@
     <Compile Include="Test\FB_AnyPrimitiveTypes_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Test\FB_NewTestFB_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\FB_TestSuite_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Test\PRG_TEST.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -60,6 +72,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="Mocks" />
     <Folder Include="Test" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -83,7 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="TcUnit">
-      <Resolution>TcUnit, * (www.tcunit.org)</Resolution>
+      <Resolution>TcUnit, 0.4.1.0 (www.tcunit.org)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ItemGroup>

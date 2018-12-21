@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FB_NewTestFB_Test" Id="{e26b3756-9357-4d27-8f4d-66820ebee40b}" SpecialFunc="None">
+    <Declaration><![CDATA[(*
+    This testsuite tests the different assert-functions for all the different data types in TwinCAT.
+    For every data type at least two different tests have been defined:
+        1. One test that succeeds (Expected and actual are equal)
+        2. One test that fails (Expected and actual are false).
+*)
+{attribute 'call_after_init'}
+FUNCTION_BLOCK FB_NewTestFB_Test EXTENDS TcUnit.FB_TestSuite IMPLEMENTS TcUnit.I_RunnableTestSuite
+VAR
+    Assert : TcUnit.FB_Assert;
+    
+    testTestSuite: UnitTestSuite;
+    testFB: UnitTest(testTestSuite);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{fb3fd669-9f91-48e1-811f-7e7a9a1556f5}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.RegisterTestSuite(THIS^);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTests" Id="{f3839f6c-e99d-404b-b0db-30f053091682}">
+      <Declaration><![CDATA[METHOD RunTests : TCUNIT.E_TestSuiteRunState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_GetTestSuiteUninitialized();
+Test_GetTestSuiteInitialized();
+
+RunTests := TCUNIT.E_TestSuiteRunState.FINISHED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_GetTestSuiteInitialized" Id="{e35cf077-d735-4287-b16e-2b0973a1c88f}">
+      <Declaration><![CDATA[METHOD Test_GetTestSuiteInitialized
+VAR
+    expected: UDINT;
+    actual: UDINT;
+END_VAR
+VAR_INST
+    testIntf: ITestSuite;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_GetTestSuiteInitialized');
+
+expected := TO_UDINT(ADR(testTestSuite));
+testIntf := testFB.testSuite;
+actual := TO_UDINT(ADR(testIntf));
+
+Assert.AssertEquals_UDINT(expected, actual, 'Initialized UnitTest is wrong');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_GetTestSuiteUninitialized" Id="{d1b86bd3-130d-4c25-a228-4a0507fa9288}">
+      <Declaration><![CDATA[METHOD Test_GetTestSuiteUninitialized
+VAR
+    expected: UDINT;
+    actual: UDINT;
+END_VAR
+VAR_INST
+    testFB: UnitTest(0);
+    testIntf: ITestSuite;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_GetTestSuiteUninitialized');
+
+expected := 0;
+testIntf := testFB.testSuite;
+actual := TO_UDINT(ADR(testIntf));
+
+Assert.AssertEquals_UDINT(expected, actual, 'Uninitialized UnitTest is non zero');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_NewTestFB_Test">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_NewTestFB_Test.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_NewTestFB_Test.RunTests">
+      <LineId Id="10" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_NewTestFB_Test.Test_GetTestSuiteInitialized">
+      <LineId Id="13" Count="3" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_NewTestFB_Test.Test_GetTestSuiteUninitialized">
+      <LineId Id="15" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

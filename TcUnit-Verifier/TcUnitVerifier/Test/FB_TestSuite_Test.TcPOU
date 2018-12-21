@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FB_TestSuite_Test" Id="{d2c06896-6e3c-40b1-9e7c-b4cc8df87908}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'call_after_init'}
+FUNCTION_BLOCK FB_TestSuite_Test EXTENDS TcUnit.FB_TestSuite IMPLEMENTS TcUnit.I_RunnableTestSuite
+VAR
+    Assert : TcUnit.FB_Assert;
+
+    numberOfTestsZero_TestSuite: UnitTestSuite(0);
+
+    testSuiteRegistersItself_Runner: UnitTestRunner;
+    testSuiteRegistersItself_TestSuite: UnitTestSuite(testSuiteRegistersItself_Runner);
+    
+    runAllTestsWithOneTestSuite_Runner: UnitTestRunner;
+    runAllTestsWithOneTestSuite_TestSuite: TestSuiteMock(runAllTestsWithOneTestSuite_Runner);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{1badc6ad-ade3-4405-9c9a-df88f28d0da4}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.RegisterTestSuite(THIS^);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTests" Id="{dd012402-76f5-4bcc-bd36-986590cd1111}">
+      <Declaration><![CDATA[METHOD RunTests : TCUNIT.E_TestSuiteRunState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_NumberOfTestsZero();
+Test_TestSuiteRegistersItself();
+Test_RunAllTestsWithOneTestSuite();
+
+RunTests := TCUNIT.E_TestSuiteRunState.FINISHED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_NumberOfTestsZero" Id="{cd3b711a-9f58-40f4-8711-9a9ecbf8282a}">
+      <Declaration><![CDATA[METHOD Test_NumberOfTestsZero
+VAR
+    expected: UINT;
+    actual: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_NumberOfTestsZero');
+
+expected := 0;
+actual := numberOfTestsZero_TestSuite.numberOfTests;
+
+Assert.AssertEquals_UINT(expected, actual, 'Number of Tests is non zero');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_RunAllTestsWithOneTestSuite" Id="{1b323fd8-3565-44ad-8ceb-2b26a6fa02c2}">
+      <Declaration><![CDATA[METHOD Test_RunAllTestsWithOneTestSuite
+VAR
+    expected: BOOL;
+    actual: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_RunAllTestsWithOneTestSuite');
+
+expected := FALSE;
+actual := runAllTestsWithOneTestSuite_TestSuite.runAllTestsExecuted;
+
+Assert.AssertEquals_BOOL(expected, actual, 'Test Suite executed even though the runner did not run');
+
+runAllTestsWithOneTestSuite_Runner.runAllTests();
+
+expected := TRUE;
+actual := runAllTestsWithOneTestSuite_TestSuite.runAllTestsExecuted;
+
+Assert.AssertEquals_BOOL(expected, actual, 'Test Suite not executed even though the runner ran');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_TestSuiteRegistersItself" Id="{b71098b5-ba04-4e73-a831-e0685a1e4a93}">
+      <Declaration><![CDATA[METHOD Test_TestSuiteRegistersItself
+VAR
+    expected: UINT;
+    actual: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_TestSuiteRegistersItself');
+
+expected := 1;
+actual := testSuiteRegistersItself_Runner.numberOfTestSuites;
+
+Assert.AssertEquals_UINT(expected, actual, 'Test Suite did not register itself');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_TestSuite_Test">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestSuite_Test.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestSuite_Test.RunTests">
+      <LineId Id="55" Count="0" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestSuite_Test.Test_NumberOfTestsZero">
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestSuite_Test.Test_RunAllTestsWithOneTestSuite">
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestSuite_Test.Test_TestSuiteRegistersItself">
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="TestSuiteMock" Id="{5bbda9de-22f2-4266-a938-78e140dc1517}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TestSuiteMock EXTENDS UnitTestSuite IMPLEMENTS ITestSuite
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    runTestsCounter: UINT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="runAllTests" Id="{eadccbba-9c8a-464d-a9a3-056873eedb5e}">
+      <Declaration><![CDATA[METHOD runAllTests
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[runTestsCounter := runTestsCounter + 1;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="runAllTestsExecuted" Id="{929dff9c-8747-463b-8d7c-fde5ea2bd2fe}">
+      <Declaration><![CDATA[PROPERTY runAllTestsExecuted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0944b336-5b88-4b5b-b252-286a7367535a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[runAllTestsExecuted := runTestsCounter > 0;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="TestSuiteMock">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TestSuiteMock.runAllTests">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="TestSuiteMock.runAllTestsExecuted.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

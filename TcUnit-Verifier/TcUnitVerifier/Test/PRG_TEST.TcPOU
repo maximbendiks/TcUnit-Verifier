@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <POU Name="PRG_TEST" Id="{35d0cb91-f449-41c5-be41-3ca0dfe074f2}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_TEST
 VAR
-    PrimitiveTypesTest : FB_PrimitiveTypes_Test;
+    (*PrimitiveTypesTest : FB_PrimitiveTypes_Test;
     AssertTrueFalse_Test : FB_AssertTrueFalse_Test;
     AssertEveryFailedTestTwice : FB_AssertEveryFailedTestTwice;
     CreateFourTestsWithSameName : FB_CreateFourTestsWithSameName;
@@ -11,7 +11,10 @@ VAR
     CreateDisabledTest : FB_CreateDisabledTest;
     AnyPrimitiveTypes_Test : FB_AnyPrimitiveTypes_Test;
     AssertEveryFailedTestTwice_ArrayVersion : FB_AssertEveryFailedTestTwice_ArrayVersion;
-    AnyToUnionValue_Test : FB_AnyToUnionValue_Test;
+    AnyToUnionValue_Test : FB_AnyToUnionValue_Test;*)
+    Runner_Test: FB_Runner_Test;
+    TestSuite_Test: FB_TestSuite_Test;
+    //NewTestFB_Test: FB_NewTestFB_Test;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();]]></ST>

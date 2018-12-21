@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FB_Runner_Test" Id="{0ff8a374-4dc0-48e5-9a2b-afa848580f0d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'call_after_init'}
+FUNCTION_BLOCK FB_Runner_Test EXTENDS TcUnit.FB_TestSuite IMPLEMENTS TcUnit.I_RunnableTestSuite
+VAR
+    Assert : TcUnit.FB_Assert;
+    
+    numberOfTestSuitesZero_Runner: UnitTestRunner;
+    
+    numberOfTestSuitesOne_Runner: UnitTestRunner;
+    numberOfTestSuitesOne_TestSuite: UnitTestSuite(0);
+    
+    numberOfTestSuitesThree_Runner: UnitTestRunner;
+    numberOfTestSuitesThree_TestSuite1: UnitTestSuite(0);
+    numberOfTestSuitesThree_TestSuite2: UnitTestSuite(0);
+    numberOfTestSuitesThree_TestSuite3: UnitTestSuite(0);
+    
+    sameTestSuiteCountsAsOne_Runner: UnitTestRunner;
+    sameTestSuiteCountsAsOne_TestSuite: UnitTestSuite(0);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{e43891fa-97a5-4cf3-9ac6-92f159856c0b}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.RegisterTestSuite(THIS^);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTests" Id="{7fc2ba07-45d4-4a0d-bdc3-51c7273c4997}">
+      <Declaration><![CDATA[METHOD RunTests : TCUNIT.E_TestSuiteRunState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_NumberOfTestSuitesZero();
+Test_NumberOfTestSuitesOne();
+Test_NumberOfTestSuitesThree();
+Test_SameTestSuiteCountsAsOne();
+
+RunTests := TCUNIT.E_TestSuiteRunState.FINISHED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_NumberOfTestSuitesOne" Id="{ba807032-8381-4786-b275-5efa085c069f}">
+      <Declaration><![CDATA[METHOD Test_NumberOfTestSuitesOne
+VAR
+    expected: UINT;
+    actual: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_NumberOfTestSuitesOne');
+
+expected := 1;
+numberOfTestSuitesOne_Runner.registerTestSuite(numberOfTestSuitesOne_TestSuite);
+actual := numberOfTestSuitesOne_Runner.numberOfTestSuites;
+
+Assert.AssertEquals_UINT(expected, actual, 'Number of Runner Test Suites unequal one');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_NumberOfTestSuitesThree" Id="{aaa6e557-a546-4a19-937f-edc433f1347c}">
+      <Declaration><![CDATA[METHOD Test_NumberOfTestSuitesThree
+VAR
+    expected: UINT;
+    actual: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_NumberOfTestSuitesThree');
+
+expected := 3;
+numberOfTestSuitesThree_Runner.registerTestSuite(numberOfTestSuitesThree_TestSuite1);
+numberOfTestSuitesThree_Runner.registerTestSuite(numberOfTestSuitesThree_TestSuite2);
+numberOfTestSuitesThree_Runner.registerTestSuite(numberOfTestSuitesThree_TestSuite3);
+actual := numberOfTestSuitesThree_Runner.numberOfTestSuites;
+
+Assert.AssertEquals_UINT(expected, actual, 'Number of Runner Test Suites unequal three');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_NumberOfTestSuitesZero" Id="{06f54e32-b387-493d-8fc8-1861fa627b10}">
+      <Declaration><![CDATA[METHOD Test_NumberOfTestSuitesZero
+VAR
+    expected: UINT;
+    actual: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_NumberOfTestSuitesZero');
+
+expected := 0;
+actual := numberOfTestSuitesZero_Runner.numberOfTestSuites;
+
+Assert.AssertEquals_UINT(expected, actual, 'Number of Runner Test Suites unequal zero');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_SameTestSuiteCountsAsOne" Id="{21654d84-adab-4d1a-90dc-4e37ee77c68b}">
+      <Declaration><![CDATA[METHOD Test_SameTestSuiteCountsAsOne
+VAR
+    expected: UINT;
+    actual: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_SameTestSuiteCountsAsOne');
+
+expected := 1;
+sameTestSuiteCountsAsOne_Runner.registerTestSuite(sameTestSuiteCountsAsOne_TestSuite);
+sameTestSuiteCountsAsOne_Runner.registerTestSuite(sameTestSuiteCountsAsOne_TestSuite);
+actual := sameTestSuiteCountsAsOne_Runner.numberOfTestSuites;
+
+Assert.AssertEquals_UINT(expected, actual, 'Same Test Suite should not be counted more than once');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Runner_Test">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Runner_Test.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Runner_Test.RunTests">
+      <LineId Id="52" Count="3" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Runner_Test.Test_NumberOfTestSuitesOne">
+      <LineId Id="6" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Runner_Test.Test_NumberOfTestSuitesThree">
+      <LineId Id="6" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Runner_Test.Test_NumberOfTestSuitesZero">
+      <LineId Id="12" Count="2" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Runner_Test.Test_SameTestSuiteCountsAsOne">
+      <LineId Id="6" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
