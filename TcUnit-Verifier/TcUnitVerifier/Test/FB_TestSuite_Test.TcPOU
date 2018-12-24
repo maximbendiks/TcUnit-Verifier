@@ -13,6 +13,12 @@ VAR
     
     runAllTestsWithOneTestSuite_Runner: UnitTestRunner;
     runAllTestsWithOneTestSuite_TestSuite: TestSuiteMock(runAllTestsWithOneTestSuite_Runner);
+    
+    runAllTestsWithFourTestSuites_Runner: UnitTestRunner;
+    runAllTestsWithFourTestSuites_TestSuite1: TestSuiteMock(runAllTestsWithFourTestSuites_Runner);
+    runAllTestsWithFourTestSuites_TestSuite2: TestSuiteMock(runAllTestsWithFourTestSuites_Runner);
+    runAllTestsWithFourTestSuites_TestSuite3: TestSuiteMock(runAllTestsWithFourTestSuites_Runner);
+    runAllTestsWithFourTestSuites_TestSuite4: TestSuiteMock(runAllTestsWithFourTestSuites_Runner);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -34,6 +40,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[Test_NumberOfTestsZero();
 Test_TestSuiteRegistersItself();
 Test_RunAllTestsWithOneTestSuite();
+Test_RunAllTestsWithFourTestSuites();
 
 RunTests := TCUNIT.E_TestSuiteRunState.FINISHED;]]></ST>
       </Implementation>
@@ -52,6 +59,27 @@ expected := 0;
 actual := numberOfTestsZero_TestSuite.numberOfTests;
 
 Assert.AssertEquals_UINT(expected, actual, 'Number of Tests is non zero');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_RunAllTestsWithFourTestSuites" Id="{1489631c-0613-4443-9d5d-768fc8c333b2}">
+      <Declaration><![CDATA[METHOD Test_RunAllTestsWithFourTestSuites
+VAR
+    expected: BOOL;
+    actual: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_RunAllTestsWithFourTestSuites');
+
+runAllTestsWithFourTestSuites_Runner.runAllTests();
+
+expected := TRUE;
+actual := runAllTestsWithFourTestSuites_TestSuite1.runAllTestsExecuted;
+actual := actual AND runAllTestsWithFourTestSuites_TestSuite2.runAllTestsExecuted;
+actual := actual AND runAllTestsWithFourTestSuites_TestSuite3.runAllTestsExecuted;
+actual := actual AND runAllTestsWithFourTestSuites_TestSuite4.runAllTestsExecuted;
+
+Assert.AssertEquals_BOOL(expected, actual, 'Test Suite not executed even though the runner ran');]]></ST>
       </Implementation>
     </Method>
     <Method Name="Test_RunAllTestsWithOneTestSuite" Id="{1b323fd8-3565-44ad-8ceb-2b26a6fa02c2}">
@@ -100,7 +128,7 @@ Assert.AssertEquals_UINT(expected, actual, 'Test Suite did not register itself')
     </LineIds>
     <LineIds Name="FB_TestSuite_Test.RunTests">
       <LineId Id="55" Count="0" />
-      <LineId Id="57" Count="1" />
+      <LineId Id="57" Count="2" />
       <LineId Id="51" Count="0" />
       <LineId Id="4" Count="0" />
     </LineIds>
@@ -111,6 +139,17 @@ Assert.AssertEquals_UINT(expected, actual, 'Test Suite did not register itself')
       <LineId Id="11" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="12" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestSuite_Test.Test_RunAllTestsWithFourTestSuites">
+      <LineId Id="5" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="21" Count="2" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
     </LineIds>
     <LineIds Name="FB_TestSuite_Test.Test_RunAllTestsWithOneTestSuite">
       <LineId Id="5" Count="0" />

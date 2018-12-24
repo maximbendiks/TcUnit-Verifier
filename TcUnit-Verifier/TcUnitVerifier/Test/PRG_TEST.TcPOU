@@ -12,9 +12,11 @@ VAR
     AnyPrimitiveTypes_Test : FB_AnyPrimitiveTypes_Test;
     AssertEveryFailedTestTwice_ArrayVersion : FB_AssertEveryFailedTestTwice_ArrayVersion;
     AnyToUnionValue_Test : FB_AnyToUnionValue_Test;*)
+    AnyToString_Test: FB_AnyToString_Test;
+    SimpleStringBuilder_Test: FB_SimpleStringBuilder_Test;
+    Printer_Test: FB_Printer_Test;
     Runner_Test: FB_Runner_Test;
     TestSuite_Test: FB_TestSuite_Test;
-    //NewTestFB_Test: FB_NewTestFB_Test;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();]]></ST>

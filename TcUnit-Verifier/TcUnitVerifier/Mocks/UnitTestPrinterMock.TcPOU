@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="UnitTestPrinterMock" Id="{7d78f928-4c3b-4ea2-a9f4-632deedb9e6f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK UnitTestPrinterMock EXTENDS UnitTestPrinter
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="getFailMessage" Id="{d91f44ec-251d-481d-998f-9e478b2a6031}">
+      <Declaration><![CDATA[METHOD getFailMessage : MaxString
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[getFailMessage := messageBuilder.toString();]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="UnitTestPrinterMock">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="UnitTestPrinterMock.getFailMessage">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

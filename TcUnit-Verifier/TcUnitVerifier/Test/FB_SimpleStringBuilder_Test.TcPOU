@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FB_SimpleStringBuilder_Test" Id="{2eefe505-04ad-490d-bcce-970863b4c8fe}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'call_after_init'}
+FUNCTION_BLOCK FB_SimpleStringBuilder_Test EXTENDS TcUnit.FB_TestSuite IMPLEMENTS TcUnit.I_RunnableTestSuite
+VAR
+    Assert : TcUnit.FB_Assert;
+    
+    initializedStringBuilderEmpty_StringBuilder: SimpleStringBuilder;
+    
+    appendOneString_StringBuilder: SimpleStringBuilder;
+    
+    appendThreeStrings_StringBuilder: SimpleStringBuilder;
+    
+    appendINT_StringBuilder: SimpleStringBuilder;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{f8d90e8d-ed56-4ccd-a130-40ffeae34ec8}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.RegisterTestSuite(THIS^);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTests" Id="{0babc269-d08a-4fc9-bd35-3df8d318f3fd}">
+      <Declaration><![CDATA[METHOD RunTests : TCUNIT.E_TestSuiteRunState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_InitializedStringBuilderEmpty();
+Test_AppendOneString();
+Test_AppendThreeStrings();
+Test_AppendINT();
+
+RunTests := TCUNIT.E_TestSuiteRunState.FINISHED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_AppendINT" Id="{29ca6270-3348-4295-8743-ffdeec11eb68}">
+      <Declaration><![CDATA[METHOD Test_AppendINT
+VAR
+    expected: STRING(10);
+    actual: STRING(10);
+    
+    testINT: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_AppendINT');
+
+expected := '13';
+
+testINT := 13;
+appendINT_StringBuilder.append(testINT);
+actual := appendINT_StringBuilder.toString();
+
+Assert.AssertEquals_STRING(expected, actual, 'Appended INT does not match');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_AppendOneString" Id="{add111b9-c4e0-4aaf-8e6d-44fe73c97f1e}">
+      <Declaration><![CDATA[METHOD Test_AppendOneString
+VAR
+    expected: STRING(10);
+    actual: STRING(10);
+    
+    testString: STRING(10);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_AppendOneString');
+
+expected := 'twincat$R';
+
+testString := 'twincat$R';
+appendOneString_StringBuilder.append(testString);
+actual := appendOneString_StringBuilder.toString();
+
+Assert.AssertEquals_STRING(expected, actual, 'String did not append');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_AppendThreeStrings" Id="{2703faa4-71af-44a7-a55a-3e0958b044b3}">
+      <Declaration><![CDATA[METHOD Test_AppendThreeStrings
+VAR
+    expected: STRING(30);
+    actual: STRING(30);
+    
+    testString1: STRING(10);
+    testString2: STRING(10);
+    testString3: STRING(10);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_AppendThreeStrings');
+
+expected := 'hello$Tworld$Tfoo$R';
+
+testString1 := 'hello$T';
+appendThreeStrings_StringBuilder.append(testString1);
+testString2 := 'world$T';
+appendThreeStrings_StringBuilder.append(testString2);
+testString3 := 'foo$R';
+appendThreeStrings_StringBuilder.append(testString3);
+actual := appendThreeStrings_StringBuilder.toString();
+
+Assert.AssertEquals_STRING(expected, actual, 'Appended Strings do not match');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_InitializedStringBuilderEmpty" Id="{c4215bac-3bb1-40f6-8a9c-dd31ee905728}">
+      <Declaration><![CDATA[METHOD Test_InitializedStringBuilderEmpty
+VAR
+    expected: STRING(10);
+    actual: STRING(10);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_InitializedStringBuilderEmpty');
+
+expected := '';
+actual := initializedStringBuilderEmpty_StringBuilder.toString();
+
+Assert.AssertEquals_STRING(expected, actual, 'Initialized String Builder not empty');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_SimpleStringBuilder_Test">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimpleStringBuilder_Test.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimpleStringBuilder_Test.RunTests">
+      <LineId Id="55" Count="0" />
+      <LineId Id="57" Count="2" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimpleStringBuilder_Test.Test_AppendINT">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimpleStringBuilder_Test.Test_AppendOneString">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimpleStringBuilder_Test.Test_AppendThreeStrings">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimpleStringBuilder_Test.Test_InitializedStringBuilderEmpty">
+      <LineId Id="6" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="10" Count="2" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

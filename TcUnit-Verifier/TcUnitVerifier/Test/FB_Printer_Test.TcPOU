@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FB_Printer_Test" Id="{3959c355-b6db-4f36-95b0-00d7b37d0885}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'call_after_init'}
+FUNCTION_BLOCK FB_Printer_Test EXTENDS TcUnit.FB_TestSuite IMPLEMENTS TcUnit.I_RunnableTestSuite
+VAR
+    Assert : TcUnit.FB_Assert;
+    
+    getFailureMessageString_Printer: UnitTestPrinter;
+    getFailureMessageINT_Printer: UnitTestPrinter;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{071a2ba1-435a-4be7-a90e-47ffadbf0dea}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.RegisterTestSuite(THIS^);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTests" Id="{7d1a596a-5eb5-45d5-8c83-5cfb1d76d03e}">
+      <Declaration><![CDATA[METHOD RunTests : TCUNIT.E_TestSuiteRunState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_GetFailureMessageString();
+Test_GetFailureMessageINT();
+
+RunTests := TCUNIT.E_TestSuiteRunState.FINISHED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_GetFailureMessageINT" Id="{da0e0c8f-411c-4f45-a2bf-486555123498}">
+      <Declaration><![CDATA[METHOD Test_GetFailureMessageINT
+VAR
+    expected: MaxString;
+    actual: MaxString;
+    
+    expectedTestValue: INT;
+    actualTestValue: INT;
+    message: MaxString;
+    path: MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_GetFailureMessageINT');
+
+expected := 'FAILED TEST $'FB_TestSuite_Test$', EXP: 1234, ACT: 1235, MSG: INTs do not match';
+
+expectedTestValue := 1234;
+actualTestValue := 1235;
+message := 'INTs do not match';
+path := 'FB_TestSuite_Test';
+actual := getFailureMessageINT_Printer.getFailureMessage(expectedTestValue, actualTestValue, message, path);
+
+Assert.AssertEquals_STRING(expected, actual, 'Get Failure Message INT does not match');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_GetFailureMessageString" Id="{d460dccf-336c-4386-a8ef-ee0120ae7e7f}">
+      <Declaration><![CDATA[METHOD Test_GetFailureMessageString
+VAR
+    expected: MaxString;
+    actual: MaxString;
+    
+    expectedTestValue: MaxString;
+    actualTestValue: MaxString;
+    message: MaxString;
+    path: MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_GetFailureMessageString');
+
+expected := 'FAILED TEST $'FB_TestSuite_Test$', EXP: hello, ACT: world, MSG: Strings do not match';
+
+expectedTestValue := 'hello';
+actualTestValue := 'world';
+message := 'Strings do not match';
+path := 'FB_TestSuite_Test';
+actual := getFailureMessageString_Printer.getFailureMessage(expectedTestValue, actualTestValue, message, path);
+
+Assert.AssertEquals_STRING(expected, actual, 'Get Failure Message String does not match');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Printer_Test">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Printer_Test.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Printer_Test.RunTests">
+      <LineId Id="61" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Printer_Test.Test_GetFailureMessageINT">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="47" Count="3" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Printer_Test.Test_GetFailureMessageString">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="47" Count="3" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

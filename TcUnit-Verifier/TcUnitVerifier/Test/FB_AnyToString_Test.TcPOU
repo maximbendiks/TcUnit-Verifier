@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FB_AnyToString_Test" Id="{3d6f8082-9d38-427c-9d5d-52917f8cfb73}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'call_after_init'}
+FUNCTION_BLOCK FB_AnyToString_Test EXTENDS TcUnit.FB_TestSuite IMPLEMENTS TcUnit.I_RunnableTestSuite
+VAR
+    Assert : TcUnit.FB_Assert;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{266858c1-8e8e-421f-b6f9-ddd28c528a56}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.RegisterTestSuite(THIS^);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTests" Id="{19565166-4ad0-41f6-88f3-8f5948776325}">
+      <Declaration><![CDATA[METHOD RunTests : TCUNIT.E_TestSuiteRunState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_String();
+Test_INT();
+Test_REAL();
+
+RunTests := TCUNIT.E_TestSuiteRunState.FINISHED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_INT" Id="{8c6b2744-a841-4815-b23a-46518637b988}">
+      <Declaration><![CDATA[METHOD Test_INT
+VAR
+    expected: STRING(10);
+    actual: STRING(10);
+    
+    testINT: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_INT');
+
+expected := '1001';
+
+testINT := 1001;
+actual := anyToString(testINT);
+
+Assert.AssertEquals_STRING(expected, actual, 'Any INT does not match');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_REAL" Id="{50a94e1f-8437-44df-94c8-77a8343e8805}">
+      <Declaration><![CDATA[METHOD Test_REAL
+VAR
+    expected: STRING(10);
+    actual: STRING(10);
+    
+    testREAL: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_REAL');
+
+expected := '13.789';
+
+testREAL := 13.789;
+actual := anyToString(testREAL);
+
+Assert.AssertEquals_STRING(expected, actual, 'Any REAL does not match');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test_String" Id="{89ba2d1b-5887-4e66-9fd6-4fafe26e4bc3}">
+      <Declaration><![CDATA[METHOD Test_String
+VAR
+    expected: STRING(10);
+    actual: STRING(10);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('Test_String');
+
+expected := 'hello';
+
+actual := anyToString(expected);
+
+Assert.AssertEquals_STRING(expected, actual, 'Any String does not match');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_AnyToString_Test">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnyToString_Test.FB_init">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnyToString_Test.RunTests">
+      <LineId Id="59" Count="2" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnyToString_Test.Test_INT">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnyToString_Test.Test_REAL">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_AnyToString_Test.Test_String">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

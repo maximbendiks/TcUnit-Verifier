@@ -26,7 +26,13 @@
     <Compile Include="Mocks\TestSuiteMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mocks\UnitTestPrinterMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\FB_Printer_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test\FB_AnyToUnionValue_Test.TcPOU">
@@ -41,6 +47,9 @@
     <Compile Include="Test\FB_AssertEveryFailedTestTwice_ArrayVersion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Test\FB_AssertTrueFalse_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Test\FB_CreateFourTestsWithSameName.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -53,13 +62,13 @@
     <Compile Include="Test\FB_PrimitiveTypes_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\FB_AssertTrueFalse_Test.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Test\FB_AnyPrimitiveTypes_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\FB_NewTestFB_Test.TcPOU">
+    <Compile Include="Test\FB_SimpleStringBuilder_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\FB_AnyToString_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test\FB_TestSuite_Test.TcPOU">
